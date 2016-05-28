@@ -1,5 +1,6 @@
 local SEED = minetest.get_mapgen_params().seed
 local MAX = 0.2
+local AREA = 50 -- Controls the minumum sizes of the walls
 
 -- Returns a boolean for a seed. Use MAX to control the probability.
 local cache = {}
@@ -34,9 +35,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				if x < 100 then -- for debug
 
 					local p_pos = area:index(x, y, z)
-					if get_randomseed_boolean(SEED + x)
-					or get_randomseed_boolean(SEED + y)
-					or get_randomseed_boolean(SEED + z) then
+					if get_randomseed_boolean(SEED + x + math.floor(math.sin(2*math.pi*(y + z) / AREA)))
+					or get_randomseed_boolean(SEED + y + math.floor(math.sin(2*math.pi*(x + y) / AREA)))
+					or get_randomseed_boolean(SEED + z + math.floor(math.sin(2*math.pi*(x + y) / AREA))) then
 
 						data[p_pos] = minetest.get_content_id("default:stone")
 					end
