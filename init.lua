@@ -1,6 +1,6 @@
 local SEED = minetest.get_mapgen_params().seed
 local MAX = 0.2
-local AREA = 50 -- Controls the minumum sizes of the walls
+local AREA = 10 -- Controls the minumum sizes of the walls
 
 -- Nodes that can make the walls
 local NODES = {
