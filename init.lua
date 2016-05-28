@@ -10,7 +10,7 @@ local NODES = {
 	"default:stonebrick",
 	"default:sandstonebrick",
 	"default:desert_stonebrick",
-	"default:obsidianbrick",
+--	"default:obsidianbrick",
 	"default:brick",
 }
 
@@ -47,9 +47,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				if x < 100 then -- for debug
 
 					local p_pos = area:index(x, y, z)
-					if get_randomseed_boolean(SEED + x + math.floor((y + z) / AREA))
-					or get_randomseed_boolean(SEED + y + math.floor((x + z) / AREA))
-					or get_randomseed_boolean(SEED + z + math.floor((x + y) / AREA)) then
+					if get_randomseed_boolean(SEED + x + math.floor((z) / AREA) + math.floor((y) / AREA))
+					or get_randomseed_boolean(SEED + y + math.floor((x) / AREA) + math.floor((z) / AREA))
+					or get_randomseed_boolean(SEED + z + math.floor((x) / AREA) + math.floor((y) / AREA)) then
 
 						local node = NODES[math.random(#NODES)]
 						data[p_pos] = minetest.get_content_id(node)
