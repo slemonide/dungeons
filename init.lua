@@ -1,10 +1,9 @@
 local SEED = minetest.get_mapgen_params().seed
+local MAX = 0.2
 
 -- Returns a boolean for a seed. Use MAX to control the probability.
 local cache = {}
 local function get_randomseed_boolean(seed)
-	local MAX = 0.2
-
 	if cache[seed] ~= nil then
 		return cache[seed]
 	else
