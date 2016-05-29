@@ -1,6 +1,7 @@
 local SEED = minetest.get_mapgen_params().seed
-local MAX = 0.2
+local MAX = 0.05
 local AREA = 10 -- Controls the minumum size of the walls
+local DISTORTION = 1.5 -- Controls the distortion of the walls
 
 -- Nodes that can make the walls
 local NODES = {
@@ -47,9 +48,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				if x < 100 then -- for debug
 
 					local p_pos = area:index(x, y, z)
-					if get_randomseed_boolean(SEED + x + math.floor((z) / AREA) + math.floor((y) / AREA))
-					or get_randomseed_boolean(SEED + y + math.floor((x) / AREA) + math.floor((z) / AREA))
-					or get_randomseed_boolean(SEED + z + math.floor((x) / AREA) + math.floor((y) / AREA)) then
+					if get_randomseed_boolean(SEED + x
+						+ math.floor((z - DISTORTION*y) / AREA)
+						+ math.floor((y - DISTORTION*z) / AREA))
+					or get_randomseed_boolean(SEED + y
+						+ math.floor((x - DISTORTION*z) / AREA)
+						+ math.floor((z - DISTORTION*x) / AREA))
+					or get_randomseed_boolean(SEED + z
+						+ math.floor((x - DISTORTION*y) / AREA)
+						+ math.floor((y - DISTORTION*x) / AREA)) then
 
 						local node = NODES[math.random(#NODES)]
 						data[p_pos] = minetest.get_content_id(node)
